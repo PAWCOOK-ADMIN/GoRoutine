@@ -46,13 +46,13 @@ func runCmd() {
 	useBufferedIO := false
 	fmt.Println("Run command `echo -n \"My first command comes from golang.\"`: ")
 	cmd0 := exec.Command("echo", "-n", "My first command comes from golang.")
-	stdout0, err := cmd0.StdoutPipe()
+	stdout0, err := cmd0.StdoutPipe() // 输出管道
 	if err != nil {
 		fmt.Printf("Error: Couldn't obtain the stdout pipe for command No.0: %s\n", err)
 		return
 	}
 	defer stdout0.Close()
-	if err := cmd0.Start(); err != nil {
+	if err := cmd0.Start(); err != nil { // 启动命令
 		fmt.Printf("Error: The command No.0 can not be startup: %s\n", err)
 		return
 	}
@@ -70,10 +70,10 @@ func runCmd() {
 				}
 			}
 			if n > 0 {
-				outputBuf0.Write(tempOutput[:n])
+				outputBuf0.Write(tempOutput[:n]) // 写入缓冲区
 			}
 		}
-		fmt.Printf("%s\n", outputBuf0.String())
+		fmt.Printf("%s\n", outputBuf0.String()) // 返回string
 	} else {
 		outputBuf0 := bufio.NewReader(stdout0)
 		output0, _, err := outputBuf0.ReadLine()
